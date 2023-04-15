@@ -23,17 +23,15 @@ class Warning(object):
         :type file_dir: str
     """
 
-    def __init__(self, in_file_dir: str) -> None:
+    def __init__(self, file_dir: str) -> None:
         
         self.keywords = ["source...", "lat...", "hazard...", "time..."]
 
-        self.file_dir = in_file_dir
+        self.file_dir = file_dir
 
         raw_lines = self.parse_file()
         self.time = 1
-        self.source = str
-        self.hazard = str
-        self.coords = list[list[str]]
+        self.source = ""
 
         try:
             lat_long_is_there = False
@@ -109,6 +107,10 @@ class Warning(object):
             out_coords.append([split_str[i], f"-{split_str[i+1]}"])
 
         return out_coords
+
+    def parse_time(self) -> datetime.datetime:
+
+        pass
 
     def parse_hazard(self, raw_str: str) -> str:
         """Takes the line with the hazard, Removes unnecessary text and capitalises.
