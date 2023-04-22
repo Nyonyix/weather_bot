@@ -32,6 +32,7 @@ class Warning(object):
         raw_lines = self.parse_file()
         self.time = 1
         self.source = ""
+        self.counties = []
 
         try:
             lat_long_is_there = False
@@ -108,9 +109,14 @@ class Warning(object):
 
         return out_coords
 
-    def parse_time(self) -> datetime.datetime:
+    def parse_time(self, raw_str: str) -> datetime.datetime:
 
-        pass
+        raw_str = raw_str[:-1]
+
+        hours = raw_str[:2]
+        minutes = raw_str[2:]
+
+        full_time_str = f"{hours}:{minutes}:00.0"
 
     def parse_hazard(self, raw_str: str) -> str:
         """Takes the line with the hazard, Removes unnecessary text and capitalises.
