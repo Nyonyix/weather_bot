@@ -8,6 +8,7 @@ def main() -> None:
 
     curr_warning = Warning("2023041500.SVR")
 
+    print(f"ID: {curr_warning.id}")
     print(f"Type: {curr_warning.type}")
     print(f"Hazard: {curr_warning.hazard}")
     print(f"Source: {curr_warning.source}")

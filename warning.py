@@ -25,6 +25,11 @@ class WarningSourceNotFound(Exception):
         self.message = "The source has not been found within the source file."
         super().__init__(self.message)
 
+class WarningIdNotFound(Exception):
+    def __init__(self) -> None:
+        self.message = "The ID has not been found within the source file."
+        super().__init__(self.message)
+
 class Warning(object):
     """Warning Object that contains various things related to warnings.
 
@@ -123,6 +128,20 @@ class Warning(object):
                 raise WarningSourceNotFound
         except WarningSourceNotFound as e:
             self.source = "Unknown, See Logs"
+            exit(e)
+
+        try:
+            id_is_there = False
+            for line in self.raw_lines:
+
+                if "/o." in line:
+                    self.id = line
+                    id_is_there = True
+
+            if not id_is_there:
+                raise WarningIdNotFound
+        except WarningIdNotFound as e:
+            self.id = "Unknown, See Logs"
             exit(e)
 
     def parse_file(self) -> list[list[str], list[str]]:
